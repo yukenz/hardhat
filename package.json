@@ -5,7 +5,8 @@
   "scripts": {
     "test": "hardhat test --typecheck",
     "compile": "hardhat compile",
-    "node": "hardhat node"
+    "node": "hardhat node",
+    "deploy-idrc-localhost": "hardhat ignition deploy ./ignition/modules/IDRC.ts --network localhost"
   },
   "keywords": [],
   "author": "",

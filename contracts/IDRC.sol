@@ -7,8 +7,8 @@ pragma solidity ^0.8.28;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 
-contract GGWPToken is ERC20 {
-    constructor(uint256 initialSupply) ERC20("Good Game Will Play", "GGWP") {
-        _mint(msg.sender, initialSupply);
+contract IDRC is ERC20 {
+    constructor() ERC20("Indonesia Rupiah", "IDRC") {
+        _mint(msg.sender, 2**256 - 1);
     }
 }
