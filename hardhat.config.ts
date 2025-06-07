@@ -1,7 +1,7 @@
 import type {HardhatUserConfig} from "hardhat/config";
+import {vars} from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox-viem";
 
-const INFURA_API_KEY = "dwdw"
 
 const config: HardhatUserConfig = {
     solidity: "0.8.28",
@@ -20,9 +20,31 @@ const config: HardhatUserConfig = {
         //     }
         // },
         sepolia: {
-            url: `https://sepolia.infura.io/v3/${INFURA_API_KEY}`
+            url: `https://sepolia.infura.io/v3/${vars.has("INFURA_APIKEY") ? vars.get("INFURA_APIKEY") : undefined}`
+        },
+        monadTestnet: {
+            url: "https://testnet-rpc.monad.xyz/",
+            chainId: 10143,
+            accounts: vars.has("PRIVATE_KEY") ? [`0x${vars.get("PRIVATE_KEY")}`] : [],
+            gasPrice: "auto",
         }
-    }
+    },
+    // Start -- Add On BlockDev
+    sourcify: {
+        enabled: true,
+        apiUrl: "https://sourcify-api-monad.blockvision.org",
+        browserUrl: "https://testnet.monadexplorer.com",
+    },
+    etherscan: {
+        enabled: false,
+    },
+    gasReporter: {
+        enabled: true,
+        currency: 'USD',
+        outputFile: "gas-report.txt",
+        noColors: true,
+    },
+    // Start -- End
 };
 
 export default config;
