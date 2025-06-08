@@ -3,7 +3,7 @@
 
 import {buildModule} from "@nomicfoundation/hardhat-ignition/modules";
 
-const BlockDevModule = buildModule("BlockDevModule", (m) => {
+export default buildModule("BlockDevModule", (m) => {
 
     const digitalWalletKampus = m.contract("DigitalWalletKampus", [], {});
     const pemilihanBEM = m.contract("PemilihanBEM", [], {});
@@ -12,4 +12,3 @@ const BlockDevModule = buildModule("BlockDevModule", (m) => {
     return {digitalWalletKampus, pemilihanBEM, sistemAkademik};
 });
 
-export default BlockDevModule;
