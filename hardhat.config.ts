@@ -23,7 +23,8 @@ const config: HardhatUserConfig = {
             url: `https://sepolia.infura.io/v3/${vars.has("INFURA_APIKEY") ? vars.get("INFURA_APIKEY") : undefined}`
         },
         monadTestnet: {
-            url: "https://testnet-rpc.monad.xyz/",
+            // url: "https://testnet-rpc.monad.xyz/",
+            url: "https://monad-testnet.g.alchemy.com/v2/" + (vars.has("ALCHEMY_APIKEY") ? vars.get("ALCHEMY_APIKEY") : undefined),
             chainId: 10143,
             accounts: vars.has("PRIVATE_KEY") ? [`0x${vars.get("PRIVATE_KEY")}`] : [],
             gasPrice: "auto",
