@@ -6,8 +6,7 @@
     "test": "hardhat test --typecheck",
     "testTravelWithMotor": "hardhat test --typecheck ./test/TravelWithMotor.ts",
     "compile": "hardhat compile",
-    "node": "hardhat node",
-    "deploy-idrc-localhost": "hardhat ignition deploy ./ignition/modules/IDRC.ts --network localhost"
+    "node": "hardhat node"
   },
   "keywords": [],
   "author": "",
