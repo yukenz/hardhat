@@ -22,7 +22,7 @@ contract Token is ERC20, Ownable {
         string memory tokenSymbol
     )
     ERC20(tokenName, tokenSymbol)
-    Ownable(initialOwner)
+    Ownable()
     {
 // Transfer kepemilikan ke pemilik awal
         _transferOwnership(initialOwner);
