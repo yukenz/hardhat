@@ -9,4 +9,9 @@ contract HelloWorld {
         return hw;
     }
 
+    function helloWorld(string memory hh) public view returns (string memory) {
+        string memory hw = "Hello World";
+        return hw;
+    }
+
 }
