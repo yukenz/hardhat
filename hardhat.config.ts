@@ -4,7 +4,19 @@ import "@nomicfoundation/hardhat-toolbox-viem";
 
 
 const config: HardhatUserConfig = {
-    solidity: "0.8.28",
+    solidity: {
+        version: "0.8.28",
+        settings: {
+            metadata: {
+                bytecodeHash: "none",      // ⬅ prevents IPFS-hash mismatch
+                useLiteralContent: true,   // ⬅ embeds the full source in metadata
+            },
+            optimizer: {
+                enabled: true,
+                runs: 200
+            }
+        }
+    },
     networks: {
         // localhost: {
         //     url: `http://localhost:8545`,
@@ -24,8 +36,8 @@ const config: HardhatUserConfig = {
         },
         monadTestnet: {
             // url: "https://testnet-rpc.monad.xyz/",
-            url: "https://soft-icy-darkness.monad-testnet.quiknode.pro/" + (vars.has("QUICKNODE_APIKEY") ? vars.get("QUICKNODE_APIKEY") : undefined),
-            // url: "https://monad-testnet.g.alchemy.com/v2/" + (vars.has("ALCHEMY_APIKEY") ? vars.get("ALCHEMY_APIKEY") : undefined),
+            // url: "https://soft-icy-darkness.monad-testnet.quiknode.pro/" + (vars.has("QUICKNODE_APIKEY") ? vars.get("QUICKNODE_APIKEY") : undefined),
+            url: "https://monad-testnet.g.alchemy.com/v2/" + (vars.has("ALCHEMY_APIKEY") ? vars.get("ALCHEMY_APIKEY") : undefined),
             chainId: 10143,
             accounts: vars.has("PRIVATE_KEY") ? [`0x${vars.get("PRIVATE_KEY")}`] : [],
             gasPrice: "auto",
