@@ -36,8 +36,8 @@ const config: HardhatUserConfig = {
         },
         monadTestnet: {
             // url: "https://testnet-rpc.monad.xyz/",
-            // url: "https://soft-icy-darkness.monad-testnet.quiknode.pro/" + (vars.has("QUICKNODE_APIKEY") ? vars.get("QUICKNODE_APIKEY") : undefined),
-            url: "https://monad-testnet.g.alchemy.com/v2/" + (vars.has("ALCHEMY_APIKEY") ? vars.get("ALCHEMY_APIKEY") : undefined),
+            url: "https://soft-icy-darkness.monad-testnet.quiknode.pro/" + (vars.has("QUICKNODE_APIKEY") ? vars.get("QUICKNODE_APIKEY") : undefined),
+            // url: "https://monad-testnet.g.alchemy.com/v2/" + (vars.has("ALCHEMY_APIKEY") ? vars.get("ALCHEMY_APIKEY") : undefined),
             chainId: 10143,
             accounts: vars.has("PRIVATE_KEY") ? [`0x${vars.get("PRIVATE_KEY")}`] : [],
             gasPrice: "auto",

@@ -6,6 +6,7 @@
     "test": "hardhat test --typecheck",
     "clean": "hardhat clean",
     "testTravelWithMotor": "hardhat test --typecheck ./test/TravelWithMotor.ts",
+    "testBlockDev": "hardhat test --typecheck ./test/StudentID.ts",
     "compile": "hardhat compile",
     "node": "hardhat node"
   },
