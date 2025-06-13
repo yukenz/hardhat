@@ -1,22 +1,7 @@
-import { expect } from "chai";
-import { after, before, it } from "mocha";
+import {expect} from "chai";
+import {after, before, it} from "mocha";
 import hre from "hardhat";
-import {
-    bytesToHex,
-    bytesToString,
-    hexToBytes,
-    hexToString,
-    parseAbiItem,
-    publicActions,
-    stringToBytes,
-    walletActions,
-    encodePacked,
-    encodeAbiParameters,
-    decodeAbiParameters,
-    parseAbi,
-    stringToHex,
-    keccak256
-} from "viem";
+import {publicActions, walletActions} from "viem";
 
 describe("CampusCredit", function () {
 
@@ -156,14 +141,20 @@ describe("CampusCredit", function () {
             merchant.address
         ]);
 
-        // expect(balanceStudentBefore)
-        //     .to.be.equals(BigInt(900));
+        console.log({
+            balanceStudentBefore,
+            balanceStudentAfter,
+            balanceMerchantAfter
+        })
 
-        // expect(balanceStudentAfter)
-        //     .to.be.equals(BigInt(900 - 100));
+        expect(balanceStudentBefore)
+            .to.be.equals(BigInt(900));
 
-        // expect(balanceMerchantAfter)
-        //     .to.be.equals(BigInt(100));
+        expect(balanceStudentAfter)
+            .to.be.equals(BigInt(900 - 100));
+
+        expect(balanceMerchantAfter)
+            .to.be.equals(BigInt(100));
     });
 
 });

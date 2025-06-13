@@ -5,11 +5,14 @@ import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
 import {Pausable} from "@openzeppelin/contracts/security/Pausable.sol";
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {ERC20Burnable} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+import {SafeMath} from "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "hardhat/console.sol";
 
 //import {AccessControl} from "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.6/contracts/access/AccessControl.sol";
 //import {Pausable} from "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.6/contracts/security/Pausable.sol";
 //import {ERC20} from "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.6/contracts/token/ERC20/ERC20.sol";
 //import {ERC20Burnable} from "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.6/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+//import {SafeMath} from "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.6/contracts/utils/math/SafeMath.sol";
 
 /**
 * @title CampusCredit
@@ -21,6 +24,8 @@ import {ERC20Burnable} from "@openzeppelin/contracts/token/ERC20/extensions/ERC2
  * - Peminjaman equipment
  */
 contract CampusCredit is ERC20, ERC20Burnable, Pausable, AccessControl {
+
+    using SafeMath for uint256;
 
     // TODO: Define role constants
     bytes32 public constant PAUSER_ROLE = keccak256(abi.encodePacked("PAUSER_ROLE"));
@@ -93,7 +98,7 @@ contract CampusCredit is ERC20, ERC20Burnable, Pausable, AccessControl {
     {
         // TODO: Register merchant untuk accept payments
         merchantName[merchant] = name;
-        isMerchant[merchant] = true ; // Hanay register, mempertahankan state banned
+        isMerchant[merchant] = true; // Hanay register, mempertahankan state banned
     }
 
     /**
@@ -163,12 +168,14 @@ contract CampusCredit is ERC20, ERC20Burnable, Pausable, AccessControl {
 
         // TODO: Transfer to merchant dengan cashback ke sender
         // Calculate cashback
-        uint256 cashback = amount * (cashbackPercentage / 100);
+        uint256 cashback = amount * cashbackPercentage.div(100);
 
         // Transfer main amount
         transferWithLimit(merchant, amount);
 
         // Mint cashback to sender
         ERC20._mint(msg.sender, cashback);
+
+        console.log(cashback);
     }
 }
