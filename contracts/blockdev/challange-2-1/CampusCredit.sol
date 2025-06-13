@@ -163,7 +163,7 @@ contract CampusCredit is ERC20, ERC20Burnable, Pausable, AccessControl {
 
         // TODO: Transfer to merchant dengan cashback ke sender
         // Calculate cashback
-        uint256 cashback = amount * (100 / cashbackPercentage);
+        uint256 cashback = amount * (cashbackPercentage / 100);
 
         // Transfer main amount
         transferWithLimit(merchant, amount);
