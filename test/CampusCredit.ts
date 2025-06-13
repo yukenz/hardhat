@@ -141,17 +141,11 @@ describe("CampusCredit", function () {
             merchant.address
         ]);
 
-        console.log({
-            balanceStudentBefore,
-            balanceStudentAfter,
-            balanceMerchantAfter
-        })
-
         expect(balanceStudentBefore)
             .to.be.equals(BigInt(900));
 
         expect(balanceStudentAfter)
-            .to.be.equals(BigInt(900 - 100));
+            .to.be.equals(BigInt(900 - 100 + 2));
 
         expect(balanceMerchantAfter)
             .to.be.equals(BigInt(100));

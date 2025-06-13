@@ -6,7 +6,7 @@ import {Pausable} from "@openzeppelin/contracts/security/Pausable.sol";
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {ERC20Burnable} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import {SafeMath} from "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "hardhat/console.sol";
+import "node_modules/hardhat/console.sol";
 
 //import {AccessControl} from "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.6/contracts/access/AccessControl.sol";
 //import {Pausable} from "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.6/contracts/security/Pausable.sol";
@@ -168,14 +168,15 @@ contract CampusCredit is ERC20, ERC20Burnable, Pausable, AccessControl {
 
         // TODO: Transfer to merchant dengan cashback ke sender
         // Calculate cashback
-        uint256 cashback = amount * cashbackPercentage.div(100);
+
+        uint percent = cashbackPercentage.mul(100);
+        uint scale = uint256(100).mul(100);
+        uint256 cashback = (amount * percent) / scale;
 
         // Transfer main amount
         transferWithLimit(merchant, amount);
 
         // Mint cashback to sender
         ERC20._mint(msg.sender, cashback);
-
-        console.log(cashback);
     }
 }
