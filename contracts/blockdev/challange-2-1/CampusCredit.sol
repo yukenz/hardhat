@@ -11,7 +11,6 @@ import {ERC20Burnable} from "@openzeppelin/contracts/token/ERC20/extensions/ERC2
 //import {ERC20} from "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.6/contracts/token/ERC20/ERC20.sol";
 //import {ERC20Burnable} from "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.6/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 
-
 /**
 * @title CampusCredit
 * @dev ERC-20 token untuk transaksi dalam kampus
@@ -94,7 +93,7 @@ contract CampusCredit is ERC20, ERC20Burnable, Pausable, AccessControl {
     {
         // TODO: Register merchant untuk accept payments
         merchantName[merchant] = name;
-        isMerchant[merchant] = isMerchant[merchant] ? true : false; // Hanay register, mempertahankan state banned
+        isMerchant[merchant] = true ; // Hanay register, mempertahankan state banned
     }
 
     /**
@@ -114,7 +113,7 @@ contract CampusCredit is ERC20, ERC20Burnable, Pausable, AccessControl {
     function transferWithLimit(address to, uint256 amount) public {
 
         // TODO: Check daily limit before transfer
-        require(spentToday[msg.sender] + amount < dailySpendingLimit[msg.sender]);
+        require(spentToday[msg.sender] + amount < dailySpendingLimit[msg.sender], "Daily Limit Triggered");
 
         // TODO: Reset limit if new day
         // Jika waktu reset adalah kosong, maka init
