@@ -117,7 +117,7 @@ describe("CampusCredit", function () {
     });
 
     // 5.0 Do Transfer Cashback
-    it("4.0 - Transfer Limit", async function () {
+    it("5.0 - Transfer Cashback", async function () {
 
         const balanceStudentBefore = await campusCredit.read.balanceOf([
             student1.address
@@ -145,10 +145,28 @@ describe("CampusCredit", function () {
             .to.be.equals(BigInt(900));
 
         expect(balanceStudentAfter)
-            .to.be.equals(BigInt(900 - 100 + 2));
+            .to.be.equals(BigInt(800 + 2));
 
         expect(balanceMerchantAfter)
             .to.be.equals(BigInt(100));
+    });
+
+     // 6.0 Trigger Trasfer Limit
+    it("6.0 - Trigger Trasfer Limit", async function () {
+
+        const balanceStudentBefore = await campusCredit.read.balanceOf([
+            student1.address
+        ]);
+
+        // 802 - 800 = 2
+        const trx = campusCredit.write.transferWithLimit([
+            student2.address,
+            BigInt(800)
+        ], {
+            account: student1
+        });
+        
+        await expect(trx).to.be.rejected;
     });
 
 });
