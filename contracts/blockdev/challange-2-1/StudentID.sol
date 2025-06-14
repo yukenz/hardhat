@@ -5,6 +5,7 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {ERC721Burnable} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import {ERC721URIStorage} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "node_modules/hardhat/console.sol";
 
 /**
  * @title StudentID
@@ -61,6 +62,8 @@ contract StudentID is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
 
         // 1. Check NIM tidak duplicate (use nimToTokenId)
         require(nimToTokenId[nim] < 1, "Dulplicate NIM");
+
+        console.log(nimToTokenId[nim] < 1);
 
         // 2. Check address belum punya ID (use addressToTokenId)
         require(addressToTokenId[to] < 1, "Address already have ID");

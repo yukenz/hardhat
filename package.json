@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "hardhat test --typecheck",
-    "clean": "hardhat clean",
+    "clean": "hardhat clean --global",
     "testTravelWithMotor": "hardhat test --typecheck ./test/TravelWithMotor.ts",
     "testBlockDev": "hardhat test --typecheck ./test/StudentID.ts",
     "compile": "hardhat compile",

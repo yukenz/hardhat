@@ -18,19 +18,21 @@ const config: HardhatUserConfig = {
         }
     },
     networks: {
-        // localhost: {
-        //     url: `http://localhost:8545`,
-        //     chainId: 1337,
-        //     blockGasLimit: 6721975,
-        //     gasPrice: 20000000000,
-        //     accounts: {
-        //         mnemonic: "auction canal ripple melt audit pilot blossom page summer broken onion boost",
-        //         path: "m/44'/60'/0'/0",
-        //         initialIndex: 0,
-        //         count: 20,
-        //         passphrase: "",
-        //     }
-        // },
+        localhost: {
+            url: `http://localhost:8545`,
+            chainId: 31337.,
+            // chainId: 1337,
+            blockGasLimit: 6721975,
+            gasPrice: 20000000000,
+            // accounts: {
+            //     mnemonic: "auction canal ripple melt audit pilot blossom page summer broken onion boost",
+            //     path: "m/44'/60'/0'/0",
+            //     initialIndex: 0,
+            //     count: 20,
+            //     passphrase: "",
+            // }
+            accounts: ["0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"]
+        },
         sepolia: {
             url: `https://sepolia.infura.io/v3/${vars.has("INFURA_APIKEY") ? vars.get("INFURA_APIKEY") : undefined}`
         },

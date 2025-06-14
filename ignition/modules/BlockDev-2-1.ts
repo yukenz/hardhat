@@ -5,13 +5,13 @@ import {buildModule} from "@nomicfoundation/hardhat-ignition/modules";
 
 export default buildModule("BlockDev21Module", (m) => {
 
-    // const courseBadge = m.contract("CourseBadge", [], {});
-    // const studentID = m.contract("StudentID", [], {});
+    const courseBadge = m.contract("CourseBadge", [], {});
+    const studentID = m.contract("StudentID", [], {});
     const campusCredit = m.contract("CampusCredit", [], {});
 
     return {
-        // courseBadge,
-        // studentID,
+        courseBadge,
+        studentID,
         campusCredit
     };
 });
