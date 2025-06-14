@@ -14,10 +14,18 @@ abstract contract DonationMaker {
     mapping(address => bool) public isAddressDonationInstance;
 
     // DonationInstance Address Valid
-    modifier donationAddressValid(address donationAddress) {
+    modifier requireDonationAddress(address donationAddress) {
         require(
             isAddressDonationInstance[donationAddress],
             "Address is not donation contract"
+        );
+        _;
+    }
+
+    modifier requireNotDonationAddress(address donationAddress) {
+        require(
+            !isAddressDonationInstance[donationAddress],
+            "Address is donation contract"
         );
         _;
     }
@@ -104,6 +112,9 @@ contract WeCan is ERC20, AccessControl, Pausable, DonationMaker {
         uint256 amount
     ) internal override {
 
+        // Do After
+        super._afterTokenTransfer(from, to, amount);
+
         // Cek Pelimpahan jika address tujuan adalah instance donation
         if (isAddressDonationInstance[to]) {
             DonationInstance instance = DonationInstance(to);
@@ -127,7 +138,10 @@ contract WeCan is ERC20, AccessControl, Pausable, DonationMaker {
         address receiver,
         uint256 amountTarget,
         uint256 duration
-    ) public override returns (bool) {
+    ) public
+    override
+    requireNotDonationAddress(receiver)
+    returns (bool) {
         return
             super.createDonation(
             title,
@@ -142,7 +156,7 @@ contract WeCan is ERC20, AccessControl, Pausable, DonationMaker {
     public
     view
     override
-    donationAddressValid(donationAddress)
+    requireDonationAddress(donationAddress)
     returns (uint256)
     {
         return super.balanceOf(donationAddress);
