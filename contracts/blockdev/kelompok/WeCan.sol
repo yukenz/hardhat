@@ -1,83 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
-import {DonationInstance} from "./WeCan.sol";
+import {DonationInstance} from "./DonationInstance.sol";
 import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
-import {Pausable} from "@openzeppelin/contracts/security/Pausable.sol";
+import {DonationMaker} from "./DonationMaker.sol";
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-
-abstract contract DonationMaker {
-    // Maker -> Donation Instance
-    mapping(address => address[]) public donationCreatedList;
-
-    // Donation Address
-    mapping(address => bool) public isAddressDonationInstance;
-
-    // DonationInstance Address Valid
-    modifier requireDonationAddress(address donationAddress) {
-        require(
-            isAddressDonationInstance[donationAddress],
-            "Address is not donation contract"
-        );
-        _;
-    }
-
-    modifier requireNotDonationAddress(address donationAddress) {
-        require(
-            !isAddressDonationInstance[donationAddress],
-            "Address is donation contract"
-        );
-        _;
-    }
-
-    // Get Amount of Donation Instance
-    function getCollectedDonation(address donationAddress)
-    public
-    view
-    virtual
-    returns (uint256);
-
-    // Create Donation
-    event CreateDonationEvent(
-        string title,
-        address indexed creator,
-        address indexed receiver,
-        uint256 amountTarget,
-        uint256 duration
-    );
-
-    function createDonation(
-        string memory title,
-        string memory description,
-        address receiver,
-        uint256 amountTarget,
-        uint256 duration
-    ) public virtual returns (bool) {
-        DonationInstance donationInstance = new DonationInstance(
-            title,
-            description,
-            receiver,
-            amountTarget,
-            block.timestamp + duration
-        );
-
-        // Register Maker -> Donation Instance
-        donationCreatedList[msg.sender].push(address(donationInstance));
-        // Register Address -> Is Donation Instance
-        isAddressDonationInstance[address(donationInstance)] = true;
-
-        emit CreateDonationEvent({
-            title: title,
-            creator: msg.sender,
-            receiver: receiver,
-            amountTarget: amountTarget,
-            duration: duration
-        });
-
-        return true;
-    }
-
-}
+import {Pausable} from "@openzeppelin/contracts/security/Pausable.sol";
 
 contract WeCan is ERC20, AccessControl, Pausable, DonationMaker {
     bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
@@ -169,25 +97,3 @@ contract WeCan is ERC20, AccessControl, Pausable, DonationMaker {
     );
 }
 
-contract DonationInstance {
-    string public title;
-    string public description;
-    address public receiver;
-    uint256 public amountTarget;
-    uint256 public expiredAt;
-
-    // Constructor
-    constructor(
-        string memory _title,
-        string memory _description,
-        address _receiver,
-        uint256 _amountTarget,
-        uint256 _expiredAt
-    ) {
-        title = _title;
-        description = _description;
-        receiver = _receiver;
-        amountTarget = _amountTarget;
-        expiredAt = _expiredAt;
-    }
-}
